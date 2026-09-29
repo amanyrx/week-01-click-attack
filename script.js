@@ -36,7 +36,17 @@ function powerAttack() {
     updateDisplay();
 }
 
+const powerButton10 = document.createElement("button");
+powerButton10.innerText = "Power Attack (+10) ";
+document.body.appendChild(powerButton10);
+
+function powerAttack10() {
+    score +=10;
+    updateDisplay();
+}
+
 // TODO: connect both functions to buttons
 attackButton.addEventListener("click", addPoint);
 powerButton.addEventListener("click", powerAttack);
+powerButton10.addEventListener("click", powerAttack10);
 resetButton.addEventListener("click", resetGame);

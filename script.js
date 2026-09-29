@@ -46,7 +46,30 @@ function powerAttack10() {
 }
 
 // TODO: connect both functions to buttons
-attackButton.addEventListener("click", addPoint);
+attackButton.addEventListener("click", addPoint); //bug hunt- addPoint() when parenthesis calls immediately
 powerButton.addEventListener("click", powerAttack);
 powerButton10.addEventListener("click", powerAttack10);
 resetButton.addEventListener("click", resetGame);
+
+const playerName = "Mary";
+console.log(typeof playerName); //shows what the variable is being inferred as
+
+const damage = 5;
+console.log(typeof damage);
+
+const hasWon = false;
+console.log(typeof hasWon);
+
+//const value = attackValueInput.value;
+//console.log(value+1);
+//const value = 50;
+//const attackValue = Number(value);
+//console.log(attackValue + 1);
+
+const attackValue = "10";
+console.log(typeof attackValue);
+
+if(Number.isNaN(attackValue)){
+    message.innerText = "Please enter a valid number.";
+}
+//strict equality === same value, type etc

@@ -5,6 +5,14 @@ const title = document.getElementById("title");
 const attackButton = document.getElementById("attackButton");
 const resetButton = document.getElementById("resetButton");
 
+const playerNameInput = document.getElementById("playerName");
+const attackValueInput = document.getElementById("attackValue");
+const message = document.getElementById("message");
+
+console.log(attackValueInput.value);
+console.log(typeof attackValueInput.value + 1);//i predict it will concatenate as it is read as type string
+console.log(getAttackValue()+ 5);
+
 attackButton.addEventListener("click", addPoint);
 
 // TODO: create addPoint()
@@ -19,6 +27,26 @@ function resetGame() {
     updateDisplay();
 }
 
+function getAttackValue() {
+  const rawValue = attackValueInput.value.trim();
+
+  if(rawValue === "") {
+    message.innerText = "Please enter a valid number";
+    return null;
+  }
+  const attackValue = Number(rawValue);
+  if(Number.isNaN(attackValue)) {
+    message.innerText = "Please enter a valid number.";
+    return null;
+  }
+  if(attackValue < 1 || attackValue > 10) {
+    message.innerText = "Choose an attack value from 1 to 10.";
+    return null;
+  }
+
+  return attackValue;
+}
+console.log(attackValueInput.value);
 function updateDisplay() {
     scoreDisplay.innerText = score;
 
@@ -51,25 +79,25 @@ powerButton.addEventListener("click", powerAttack);
 powerButton10.addEventListener("click", powerAttack10);
 resetButton.addEventListener("click", resetGame);
 
-const playerName = "Mary";
-console.log(typeof playerName); //shows what the variable is being inferred as
-
-const damage = 5;
-console.log(typeof damage);
-
-const hasWon = false;
-console.log(typeof hasWon);
-
-//const value = attackValueInput.value;
-//console.log(value+1);
-//const value = 50;
-//const attackValue = Number(value);
-//console.log(attackValue + 1);
-
-const attackValue = "10";
-console.log(typeof attackValue);
-
-if(Number.isNaN(attackValue)){
-    message.innerText = "Please enter a valid number.";
-}
+// const playerName = "Mary";
+// console.log(typeof playerName); //shows what the variable is being inferred as
+//
+// const damage = 5;
+// console.log(typeof damage);
+//
+// const hasWon = false;
+// console.log(typeof hasWon);
+//
+// //const value = attackValueInput.value;
+// //console.log(value+1);
+// //const value = 50;
+// //const attackValue = Number(value);
+// //console.log(attackValue + 1);
+//
+// const attackValue = "10";
+// console.log(typeof attackValue);
+//
+// if(Number.isNaN(attackValue)){
+//     message.innerText = "Please enter a valid number.";
+// }
 //strict equality === same value, type etc

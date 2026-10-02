@@ -16,9 +16,12 @@ console.log(getAttackValue()+ 5);
 attackButton.addEventListener("click", addPoint);
 
 // TODO: create addPoint()
-function addPoint() {
-    score++;
-    updateDisplay();
+// function addPoint() {
+//     score++;
+//     updateDisplay();
+// }
+function performAttack() {
+  const playerName = playerNameInput.value.trim();
 }
 // TODO: create resetGame()
 function resetGame() {
@@ -64,6 +67,14 @@ function powerAttack() {
     updateDisplay();
 }
 
+function calculateDamage(baseDamage, isCritical) {
+  if(isCritical) {
+    return baseDamage * 2;
+  }
+  return baseDamage;
+}
+console.log(calculateDamage(5, false));
+console.log(calculateDamage(calculateDamage(10, true)));
 const powerButton10 = document.createElement("button");
 powerButton10.innerText = "Power Attack (+10) ";
 document.body.appendChild(powerButton10);

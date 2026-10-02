@@ -11,6 +11,16 @@
 <body>
     <h1 id="title">Click Attack</h1>
     <h2>Welcome to Click Attack!</h2>
+    <div>
+      <label for="playerName">Player name:</label>
+      <input type="text" id="playerName">
+
+      <label for="attackValue">Attack Value:</label>
+      <input id="attackValue" type="number" min="1" max="10" value="1">
+    </div>
+    <p id="message" class="feedback">
+      Enter your name and choose an attack value.
+    </p>
     <p>Score: <span id="score">0</span></p>
 
     <button id="attackButton">Attack</button>

@@ -9,24 +9,24 @@ const playerNameInput = document.getElementById("playerName");
 const attackValueInput = document.getElementById("attackValue");
 const message = document.getElementById("message");
 
-console.log(attackValueInput.value);
-console.log(typeof attackValueInput.value + 1);//i predict it will concatenate as it is read as type string
-console.log(getAttackValue()+ 5);
+const attacks = [];
+const historyList = document.getElementById("history");
 
-attackButton.addEventListener("click", addPoint);
+const attackCountDisplay = document.getElementById("attackCount");
 
-// TODO: create addPoint()
-// function addPoint() {
-//     score++;
-//     updateDisplay();
-// }
-function performAttack() {
-  const playerName = playerNameInput.value.trim();
-}
-// TODO: create resetGame()
+// console.log(attackValueInput.value);
+// console.log(typeof attackValueInput.value + 1);//i predict it will concatenate as it is read as type string
+// console.log(getAttackValue()+ 5);
+const powerButton = document.createElement("button");
+//attackButton.addEventListener("click", performAttack);
+
 function resetGame() {
     score = 0;
+    attacks.length = 0;
+    playerNameInput.value = "";
+    attackValueInput.value = "1";
     title.innerText = "Click Attack";
+    message.innerText = "Enter your name and choose an attack value.";
     updateDisplay();
 }
 
@@ -49,21 +49,28 @@ function getAttackValue() {
 
   return attackValue;
 }
-console.log(attackValueInput.value);
+// console.log(attackValueInput.value);
 function updateDisplay() {
     scoreDisplay.innerText = score;
+    attackCountDisplay.innerText = attacks.length;
+    updateHistory();
 
     if (score >= 20) {
         title.innerText = "YOU WIN!";
+        attackButton.disabled = true;
+    } else {
+        title.innerText = "Click Attack";
+        attackButton.disabled = false;
     }
 }
 
-const powerButton = document.createElement("button");
+
 powerButton.innerText = "Power Attack (+5) ";
 document.body.appendChild(powerButton);
 
 function powerAttack() {
     score +=5;
+    attacks.push(5);
     updateDisplay();
 }
 
@@ -73,19 +80,51 @@ function calculateDamage(baseDamage, isCritical) {
   }
   return baseDamage;
 }
-console.log(calculateDamage(5, false));
-console.log(calculateDamage(calculateDamage(10, true)));
+
+function performAttack() {
+    const playerName = playerNameInput.value.trim();
+    const attackValue = getAttackValue();
+    if (playerName === "") {
+        message.innerText = "Please enter your name.";
+        return;
+    }
+    if (attackValue === null) {
+        return;
+    }
+    const isCritical = attackValue === 10;
+    const damage = calculateDamage(attackValue, isCritical);
+    score += damage;
+    attacks.push(damage);
+    message.innerText = `${playerName} caused ${damage} damage.`;
+    updateDisplay();
+}
+console.log(attacks);
+// console.log(calculateDamage(5, false));
+// console.log(calculateDamage(calculateDamage(10, true)));
+
+function updateHistory() {
+    historyList.innerHTML = "";
+
+    for (let index = 0; index < attacks.length; index++) {
+        const listItem = document.createElement("li");
+        listItem.innerText =
+            `Attack ${index + 1}: ${attacks[index]} damage`;
+        historyList.appendChild(listItem);
+    }
+}
+
 const powerButton10 = document.createElement("button");
 powerButton10.innerText = "Power Attack (+10) ";
 document.body.appendChild(powerButton10);
 
 function powerAttack10() {
     score +=10;
+    attacks.push(10);
     updateDisplay();
 }
 
 // TODO: connect both functions to buttons
-attackButton.addEventListener("click", addPoint); //bug hunt- addPoint() when parenthesis calls immediately
+attackButton.addEventListener("click", performAttack); //bug hunt- addPoint() when parenthesis calls immediately
 powerButton.addEventListener("click", powerAttack);
 powerButton10.addEventListener("click", powerAttack10);
 resetButton.addEventListener("click", resetGame);
